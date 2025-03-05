@@ -1,22 +1,18 @@
 import pygame
 import random
 
-# Khởi tạo pygame
 pygame.init()
 
-# Kích thước màn hình
 WIDTH, HEIGHT = 300, 600
 BLOCK_SIZE = 30
 COLS, ROWS = WIDTH // BLOCK_SIZE, HEIGHT // BLOCK_SIZE
 
-# Màu sắc
 BACKGROUND_COLOR = (20, 20, 20)
 GRID_COLOR = (50, 50, 50)
 TEXT_COLOR = (255, 255, 255)
 COLORS = [(0, 255, 255), (0, 0, 255), (255, 165, 0), (255, 255, 0),
           (0, 255, 0), (128, 0, 128), (255, 0, 0)]
 
-# Các hình dạng của khối
 SHAPES = [
     [[1, 1, 1, 1]],  # I
     [[1, 1, 1], [0, 1, 0]],  # T
@@ -27,7 +23,6 @@ SHAPES = [
     [[0, 1, 1], [1, 1, 0]]  # Z
 ]
 
-# Lớp đại diện cho khối Tetris
 class Tetromino:
     def __init__(self, x, y):
         self.x, self.y = x, y
@@ -37,7 +32,6 @@ class Tetromino:
     def rotate(self):
         self.shape = [list(row) for row in zip(*self.shape[::-1])]
 
-# Bảng game
 board = [[(0, 0, 0) for _ in range(COLS)] for _ in range(ROWS)]
 current_piece = Tetromino(COLS // 2, 0)
 score = 0
@@ -86,8 +80,8 @@ def draw_board():
 def draw_block(x, y, color):
     rect = pygame.Rect(x * BLOCK_SIZE, y * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE)
     pygame.draw.rect(screen, color, rect, border_radius=5)
-    pygame.draw.rect(screen, (255, 255, 255), rect, 2, border_radius=5)  # Viền trắng
-    pygame.draw.rect(screen, (0, 0, 0), rect.inflate(-4, -4), 2, border_radius=5)  # Bóng tối
+    pygame.draw.rect(screen, (255, 255, 255), rect, 2, border_radius=5) 
+    pygame.draw.rect(screen, (0, 0, 0), rect.inflate(-4, -4), 2, border_radius=5) 
 
 def draw_piece(piece):
     for i, row in enumerate(piece.shape):
@@ -104,7 +98,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 clock = pygame.time.Clock()
 running = True
 fall_time = 0
-fall_speed = 500  # 500ms mỗi lần rơi
+fall_speed = 500 
 
 while running:
     screen.fill(BACKGROUND_COLOR)
@@ -138,7 +132,7 @@ while running:
             clear_rows()
             current_piece = Tetromino(COLS // 2, 0)
             if not is_valid_position(current_piece):
-                running = False  # Game over
+                running = False  
         fall_time = pygame.time.get_ticks()
 
     pygame.display.flip()
